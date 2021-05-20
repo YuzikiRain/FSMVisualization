@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a0b64a3898ba84090fddd08c7cf72f, type: 3}
+  m_Name: New FSMAsset
+  m_EditorClassIdentifier: 
+  NodeDatas:
+  - GUID: add20fa9-0731-4798-abc2-3ab81cdf09f9
+    Position: {x: 458, y: 266}
+  - GUID: 2cb95905-82e8-4438-825d-337865353afb
+    Position: {x: 77, y: 430}
+  PortDatas:
+  - Index: 0
+    FromNodeGUID: 2cb95905-82e8-4438-825d-337865353afb
+    ToNodeGUID: add20fa9-0731-4798-abc2-3ab81cdf09f9
+    ConditionGUID: 4560e08baf947f54184be0929a4f37b1
