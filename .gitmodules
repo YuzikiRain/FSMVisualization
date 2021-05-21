@@ -1,0 +1,3 @@
+[submodule "Assets/BordlessFramework"]
+	path = Assets/BordlessFramework
+	url = https://gitee.com/yukirain/BordlessFramework.git
