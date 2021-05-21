@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 339739ba9ab5491419fe691bd12bb05f, type: 3}
-  m_Name: TestCondition
+  m_Script: {fileID: 11500000, guid: 997a69d2877d27541adb63bab14d58cc, type: 3}
+  m_Name: TwoJump
   m_EditorClassIdentifier: 

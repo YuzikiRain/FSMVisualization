@@ -10,9 +10,9 @@ namespace BordlessFramework.Utility
         private FSMStateNode fsmNode;
         private Port selectedPort;
         private int selectedPortIndex;
-        private List<FSMCondition> conditions = new List<FSMCondition>();
+        private List<FSMVisualCondition> conditions = new List<FSMVisualCondition>();
 
-        public void Init(FSMStateNode node, List<FSMCondition> conditions, Port port, int selectedPortIndex)
+        public void Init(FSMStateNode node, List<FSMVisualCondition> conditions, Port port, int selectedPortIndex)
         {
             fsmNode = node;
             this.selectedPort = port;
@@ -34,7 +34,7 @@ namespace BordlessFramework.Utility
 
         public bool OnSelectEntry(SearchTreeEntry searchTreeEntry, SearchWindowContext context)
         {
-            fsmNode.SetCondition(selectedPortIndex, selectedPort, searchTreeEntry.userData as FSMCondition);
+            fsmNode.SetCondition(selectedPortIndex, selectedPort, searchTreeEntry.userData as FSMVisualCondition);
             return true;
         }
 

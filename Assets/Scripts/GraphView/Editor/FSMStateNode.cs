@@ -38,23 +38,23 @@ namespace BordlessFramework.Utility
         private void SelectState()
         {
             var searchWindow = ScriptableObject.CreateInstance<StateSearchWindow>();
-            searchWindow.Init(this, FSMGraphView.StateTypes);
+            searchWindow.Init(this, FSMGraphView.AvailableStates);
             SearchWindow.Open(new SearchWindowContext(), searchWindow);
         }
 
-        public void SetState(Type type)
+        public void SetState(FSMVisualState state)
         {
-            selectStateButton.text = type.Name;
+            selectStateButton.text = state.GetType().Name;
         }
 
         public Port AddCondition()
         {
             var outputPort = InstantiateOutputPort();
             outputContainer.Add(outputPort);
-
             RefreshExpandedState();
             RefreshPorts();
 
+            PortIndexToConditions[outputContainer.childCount - 1] = null;
             return outputPort;
         }
 
@@ -113,7 +113,7 @@ namespace BordlessFramework.Utility
             return inputPort;
         }
 
-        public void SetCondition(int portIndex, Port port, FSMCondition condition)
+        public void SetCondition(int portIndex, Port port, FSMVisualCondition condition)
         {
             Button button = port.contentContainer.Query<Button>("Select Condition");
             button.text = condition.GetType().Name;
@@ -123,7 +123,7 @@ namespace BordlessFramework.Utility
         public void SetCondition(int portIndex, Port port, string conditionGUID)
         {
             Button button = port.contentContainer.Query<Button>("Select Condition");
-            var conditionAsset = AssetDatabase.LoadAssetAtPath<FSMCondition>(AssetDatabase.GUIDToAssetPath(conditionGUID));
+            var conditionAsset = AssetDatabase.LoadAssetAtPath<FSMVisualCondition>(AssetDatabase.GUIDToAssetPath(conditionGUID));
             button.text = conditionAsset.GetType().Name;
             PortIndexToConditions[portIndex] = conditionGUID;
         }

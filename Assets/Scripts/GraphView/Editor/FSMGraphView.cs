@@ -10,9 +10,8 @@ namespace BordlessFramework.Utility
     public class FSMGraphView : GraphView
     {
         public VisualElement rootVisualElement;
-        private static List<string> scriptableClassNames = new List<string>();
-        internal static List<Type> StateTypes = new List<Type>();
-        internal static List<FSMCondition> AvailableConditions = new List<FSMCondition>();
+        internal static List<FSMVisualState> AvailableStates = new List<FSMVisualState>();
+        internal static List<FSMVisualCondition> AvailableConditions = new List<FSMVisualCondition>();
         public List<FSMPortData> PortDatas = new List<FSMPortData>();
         private readonly Vector2 defaultNodeSize = new Vector2(x: 150, y: 200);
 
@@ -101,19 +100,17 @@ namespace BordlessFramework.Utility
 
         private static void InitAvailableCondition()
         {
-            foreach (var guid in AssetDatabase.FindAssets($"t:{nameof(FSMCondition)}"))
+            foreach (var guid in AssetDatabase.FindAssets($"t:{nameof(FSMVisualCondition)}"))
             {
-                AvailableConditions.Add(AssetDatabase.LoadAssetAtPath<FSMCondition>(AssetDatabase.GUIDToAssetPath(guid)));
+                AvailableConditions.Add(AssetDatabase.LoadAssetAtPath<FSMVisualCondition>(AssetDatabase.GUIDToAssetPath(guid)));
             }
         }
 
         private static void InitAvailableState()
         {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (var assembly in assemblies)
+            foreach (var guid in AssetDatabase.FindAssets($"t:{nameof(FSMVisualState)}"))
             {
-                var types = assembly.GetTypes();
-                foreach (var type in types) if (type.IsSubclassOf(typeof(State))) StateTypes.Add(type);
+                AvailableStates.Add(AssetDatabase.LoadAssetAtPath<FSMVisualState>(AssetDatabase.GUIDToAssetPath(guid)));
             }
         }
 

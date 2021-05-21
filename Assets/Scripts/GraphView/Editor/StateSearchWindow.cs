@@ -8,21 +8,21 @@ namespace BordlessFramework.Utility
     public class StateSearchWindow : ScriptableObject, ISearchWindowProvider
     {
         private FSMStateNode fsmNode;
-        private List<Type> stateTypes = new List<Type>();
+        private List<FSMVisualState> states = new List<FSMVisualState>();
 
-        public void Init(FSMStateNode node, List<Type> stateTypes)
+        public void Init(FSMStateNode node, List<FSMVisualState> stateTypes)
         {
             fsmNode = node;
-            this.stateTypes = stateTypes;
+            this.states = stateTypes;
         }
 
         public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context)
         {
             List<SearchTreeEntry> searchTreeEntries = new List<SearchTreeEntry>();
             searchTreeEntries.Add(new SearchTreeGroupEntry(new GUIContent("State")));
-            foreach (var type in stateTypes)
+            foreach (var state in states)
             {
-                searchTreeEntries.Add(new SearchTreeEntry(new GUIContent(type.Name)) { level = 1, userData = type });
+                searchTreeEntries.Add(new SearchTreeEntry(new GUIContent(state.GetType().Name)) { level = 1, userData = state });
             }
 
             return searchTreeEntries;
@@ -30,7 +30,7 @@ namespace BordlessFramework.Utility
 
         public bool OnSelectEntry(SearchTreeEntry searchTreeEntry, SearchWindowContext context)
         {
-            fsmNode.SetState(searchTreeEntry.userData as Type);
+            fsmNode.SetState(searchTreeEntry.userData as FSMVisualState);
             return true;
         }
 

@@ -1,7 +1,7 @@
 ﻿using BordlessFramework.Utility;
 using UnityEngine;
 
-public abstract class FSMCondition : CustomScriptableObject
+public abstract class FSMVisualCondition : CustomScriptableObject
 {
     protected virtual void TrueCondition()
     {

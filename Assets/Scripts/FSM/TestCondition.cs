@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestCondition : FSMCondition
+public class TestCondition : FSMVisualCondition
 {
     protected override void TrueCondition()
     {

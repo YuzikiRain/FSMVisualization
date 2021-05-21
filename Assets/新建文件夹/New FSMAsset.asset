@@ -13,12 +13,26 @@ MonoBehaviour:
   m_Name: New FSMAsset
   m_EditorClassIdentifier: 
   NodeDatas:
-  - GUID: add20fa9-0731-4798-abc2-3ab81cdf09f9
-    Position: {x: 458, y: 266}
-  - GUID: 2cb95905-82e8-4438-825d-337865353afb
-    Position: {x: 77, y: 430}
+  - GUID: d72d2a07-2f71-4b23-b47e-1827ec6e5bba
+    Position: {x: 43, y: -10}
+  - GUID: 36e554ee-9dd7-48b3-a530-6be4f23f91f5
+    Position: {x: 333, y: -33}
+  - GUID: 9fcf3692-0450-441f-8f42-0b94dd0e6618
+    Position: {x: 333, y: 139}
   PortDatas:
   - Index: 0
-    FromNodeGUID: 2cb95905-82e8-4438-825d-337865353afb
-    ToNodeGUID: add20fa9-0731-4798-abc2-3ab81cdf09f9
-    ConditionGUID: 4560e08baf947f54184be0929a4f37b1
+    FromNodeGUID: d72d2a07-2f71-4b23-b47e-1827ec6e5bba
+    ToNodeGUID: 36e554ee-9dd7-48b3-a530-6be4f23f91f5
+    ConditionGUID: 
+  - Index: 0
+    FromNodeGUID: 36e554ee-9dd7-48b3-a530-6be4f23f91f5
+    ToNodeGUID: 9fcf3692-0450-441f-8f42-0b94dd0e6618
+    ConditionGUID: 
+  - Index: 1
+    FromNodeGUID: 36e554ee-9dd7-48b3-a530-6be4f23f91f5
+    ToNodeGUID: d72d2a07-2f71-4b23-b47e-1827ec6e5bba
+    ConditionGUID: 
+  - Index: 0
+    FromNodeGUID: 9fcf3692-0450-441f-8f42-0b94dd0e6618
+    ToNodeGUID: d72d2a07-2f71-4b23-b47e-1827ec6e5bba
+    ConditionGUID: 

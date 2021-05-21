@@ -22,12 +22,13 @@ namespace BordlessFramework.Utility
             return window;
         }
 
-        [OnOpenAsset(1)]
+        [OnOpenAsset]
         public static bool OpenFSMGraphWindow(int instanceID, int line)
         {
-            var window = OpenFSMGraphWindow();
             var asset = EditorUtility.InstanceIDToObject(instanceID) as FSMData;
-            if (asset) window.Load(asset);
+            if (!asset) return false;
+            var window = OpenFSMGraphWindow();
+            window.Load(asset);
             return true;
         }
 
@@ -62,6 +63,7 @@ namespace BordlessFramework.Utility
 
             var toolbarMenu = new ToolbarMenu();
             toolbarMenu.text = "file";
+            toolbarMenu.menu.AppendAction("new", _ => NewFSM());
             toolbarMenu.menu.AppendAction("load", _ => OpenLoadPanel());
             toolBar.Add(toolbarMenu);
 
@@ -76,7 +78,6 @@ namespace BordlessFramework.Utility
         private string OpenSavePanel()
         {
             var path = EditorUtility.SaveFilePanelInProject("save FSMAsset", "New FSMAsset", "asset", string.Empty);
-            //path = AssetDatabase.GenerateUniqueAssetPath(path);
             if (path == null) return path;
             EditorPrefs.SetString("RecentFSMAssetPath", path);
             return path;
@@ -92,7 +93,9 @@ namespace BordlessFramework.Utility
                 AssetDatabase.CreateAsset(currentFSMAsset, path);
                 AssetDatabase.Refresh();
             }
+
             currentFSMAsset.NodeDatas = new List<FSMStateNodeData>();
+            currentFSMAsset.PortDatas = new List<FSMPortData>();
             graphView.nodes.ForEach(tempNode =>
             {
                 FSMStateNode node = tempNode as FSMStateNode;
@@ -100,7 +103,6 @@ namespace BordlessFramework.Utility
                 fsmStateNodeData.GUID = node.viewDataKey;
                 fsmStateNodeData.Position = node.GetPosition().position;
 
-                currentFSMAsset.PortDatas = new List<FSMPortData>();
                 int portIndex = 0;
                 foreach (Port port in node.outputContainer.Children())
                 {
@@ -162,7 +164,7 @@ namespace BordlessFramework.Utility
                 }
                 if (fromNode == null || toNode == null) continue;
                 var fromPort = fromNode.AddCondition();
-                fromNode.SetCondition(portData.Index, fromPort, portData.ConditionGUID);
+                if (!string.IsNullOrEmpty(portData.ConditionGUID)) fromNode.SetCondition(portData.Index, fromPort, portData.ConditionGUID);
                 graphView.Add(fromPort.ConnectTo(toNode.InputPort));
             };
         }
@@ -174,6 +176,16 @@ namespace BordlessFramework.Utility
             var asset = AssetDatabase.LoadAssetAtPath<FSMData>(path);
 
             Load(asset);
+        }
+
+        private void NewFSM()
+        {
+            // 当前FSM存在，提示保存当前FSM
+            if (currentFSMAsset && EditorUtility.DisplayDialog("save fsm", "you want to save change?", "yes", "no")) Save();
+            // 清除Node和Edge
+            foreach (var edge in graphView.edges.ToList()) graphView.RemoveElement(edge);
+            foreach (var node in graphView.nodes.ToList()) graphView.RemoveElement(node);
+            currentFSMAsset = null;
         }
 
         private void OnDisable()
