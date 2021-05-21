@@ -5,9 +5,5 @@ using UnityEngine;
 
 public class AirState : State
 {
-    public override void Reason()
-    {
-        
-    }
 
 }
